@@ -7,38 +7,42 @@
  * 
  * Copyright 2013, Codrops
  * http://www.codrops.com
+ *
+ * Forked by: Amrta Kautsar Faruqi
  */
-var cbpAnimatedHeader = (function() {
 
-	var docElem = document.documentElement,
-		header = document.querySelector( '.cbp-af-header' ),
-		didScroll = false,
-		changeHeaderOn = 300;
+(function() {
+  $(function() {
+    var docElem = $(document),
+      header = $('.cbp-af-header'),
+      didScroll = false,
+      changeHeaderOn = 300;
 
-	function init() {
-		window.addEventListener( 'scroll', function( event ) {
-			if( !didScroll ) {
-				didScroll = true;
-				setTimeout( scrollPage, 250 );
-			}
-		}, false );
-	}
+    function init() {
+      $(window).on('scroll', function() {
+        if(!didScroll) {
+          didScroll = true;
+          setTimeout( scrollPage, 250);
+        }
+      });
+    }
 
-	function scrollPage() {
-		var sy = scrollY();
-		if ( sy >= changeHeaderOn ) {
-			classie.add( header, 'cbp-af-header-shrink' );
-		}
-		else {
-			classie.remove( header, 'cbp-af-header-shrink' );
-		}
-		didScroll = false;
-	}
+    function scrollPage() {
+      var sy = scrollY();
 
-	function scrollY() {
-		return window.pageYOffset || docElem.scrollTop;
-	}
+      if ( sy >= changeHeaderOn ) {
+        header.addClass('cbp-af-header-shrink');
+      } else {
+        header.removeClass('cbp-af-header-shrink');
+      }
 
-	init();
+      didScroll = false;
+    }
 
+    function scrollY() {
+      return window.pageYOffset || docElem.scrollTop();
+    }
+
+    init();
+  });
 })();
